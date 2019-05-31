@@ -17,7 +17,7 @@ test_pointers: $(TEST_DIR)/test_pointers
 $(TEST_DIR)/test_pointers: $(STUDENT_DIR)/pointers.cpp $(TEST_DIR)/test_pointers.cpp
 
 # basics not ready to be tested yet!
-tests: test_hello test_pointers 
+tests: test_hello test_basics
 	    tests/test_hello
 	    tests/test_basics
 
