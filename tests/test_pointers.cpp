@@ -20,6 +20,15 @@ int main() {
     cout << "After ref, n = " << n << endl;
     assert(n == 2);
     
+    // now assign TAs to students
+    vector<Student*> students;
+    Student* mary = new Student("mary");
+    Student* gordon = new Student("gordon");
+    assignTA(mary, gordon);
+    students.push_back(mary);
+    students.push_back(gordon);
+    printTAs(students);
+    
     // now let's make, print, change, and delete some "things":
     Thing** things = create_array_of_things(NUM_THINGS);
     assert(things != nullptr);
