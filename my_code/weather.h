@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include "date.h"
 using namespace std;
 
 struct GPS {
@@ -13,15 +14,7 @@ struct GPS {
 
 ostream& operator << (ostream& os, const GPS& gps);
 
-class Date{
-    friend ostream& operator << (ostream& os, const Date& date);
-public:
-    Date(int d, int m, int y);
-private:
-    int day;
-    int month;
-    int year;
-};
+
 
 
 

@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "weather.h"
+#include "date.h"
 
 
 using namespace std;
