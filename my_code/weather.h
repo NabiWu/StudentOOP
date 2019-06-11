@@ -16,13 +16,14 @@ ostream& operator << (ostream& os, const GPS& gps);
 
 
 
-
-
 class WReading{
     friend ostream& operator << (ostream& os, const WReading& wr);
 public:
     WReading(Date dt, double temp, double hum, double ws):
     date(dt), temperature(temp), humidity(hum), windspeed(ws){}
+    
+    double get_tempF();
+    double get_tempC() {return temperature ;}
 private:
     Date date;
     double temperature;  //stored temp in C

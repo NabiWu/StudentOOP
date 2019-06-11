@@ -13,6 +13,9 @@ string get_input_file(){
 };
 
 void get_wreadings(string filenm, Weather& w){
+    WReading test_temps = WReading(Date(1,1,2019),0,50,10);
+    double freezingF = test_temps.get_tempF();
+    assert(freezingF ==32);
     ifstream rfile(filenm);
     while(!rfile){
         cout<< "Could not read input file."<< endl;

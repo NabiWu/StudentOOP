@@ -6,7 +6,10 @@
 using namespace std;
 
 bool operator== (const Complex& c1, const Complex& c2) {
-    return ((c1.real == c2.real) && (c1.imag == c2.imag));
+    return ((c1.get_real() == c2.get_real()) && (c1.get_imag() == c2.get_imag()));
+}
+bool operator!= (const Complex& c1, const Complex& c2){
+    return ((c1.get_real() != c2.get_real()) || (c1.get_imag() != c2.get_imag()));
 }
 
 ostream& operator<< (ostream& os, const Complex& c) {
@@ -50,9 +53,31 @@ Complex Complex::operator++(int dummy) {
     return temp;
 }
 
-Complex Complex::operator+(const Complex& c) {
-    Complex sum{real + c.real, imag + c.imag};
+Complex& Complex::operator--() {
+    --real;
+    return (*this);
+}
+
+Complex Complex::operator--(int dummy) {
+    Complex temp(*this);
+    real--;
+    return temp;
+}
+
+Complex Complex::operator-=(const Complex& c){
+    Complex temp(*this);
+    real = real - c.real;
+    imag = imag - c.imag;
+    return temp;
+}
+
+Complex operator+(const Complex& c1, const Complex& c2) {
+    Complex sum{c1.get_real() + c2.get_real() , c1.get_imag()+c2.get_imag()};
     return sum;
+}
+Complex operator-(const Complex& c1, const Complex& c2) {
+    Complex sub{c1.get_real() - c2.get_real() , c1.get_imag() - c2.get_imag()};
+    return sub;
 }
 
 double Complex::get_real() const {
@@ -61,4 +86,12 @@ double Complex::get_real() const {
 
 double Complex::get_imag() const {
     return imag;
+}
+
+Complex Complex :: operator*(const int i){
+    Complex temp(*this);
+    real = real*i;
+    imag = imag*i;
+    return temp;
+   
 }
