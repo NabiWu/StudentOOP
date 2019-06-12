@@ -1,64 +1,68 @@
 #include <cassert>
+#include <vector>
 #include <iostream>
 #include <fstream>
 #include "../my_code/weather.h"
 
 using namespace std;
 
-string get_input_file(){
-    string filenm;
-    cout << "Input the name of the new reading file:\n";
-    cin >> filenm;
-    return filenm;
-};
-
-void get_wreadings(string filenm, Weather& w){
-    WReading test_temps = WReading(Date(1,1,2019),0,50,10);
-    double freezingF = test_temps.get_tempF();
-    assert(freezingF ==32);
+void get_wreadings(string filenm, Weather& w) {
     ifstream rfile(filenm);
-    while(!rfile){
-        cout<< "Could not read input file."<< endl;
-        rfile.open(get_input_file());
-    };
-   
-    int m,d,y;
-    double temp,hum,ws;
-    while(rfile>>m>>d>>y>>temp>>hum>>ws){
-        WReading wr = WReading(Date(d,m,y),temp, hum, ws);
+    if (!rfile) {
+        cout << "Could not read input file: " << filenm << endl;
+        exit(1);
+    }
+    int m, d, y;
+    double temp, hum, ws;
+    while (rfile >> m >> d >> y >> temp >> hum >> ws) {
+        WReading wr = WReading(Date(d, m, y), temp, hum, ws);
         w.add_reading(wr);
-    };
+    }
     rfile.close();
 }
 
-int main() {
-    GPS loc = GPS(46.3, 67.2);
-    Weather irkutsk = Weather("Irkutsk", loc);
-    
-    string filenm;
-    cout << "Input the name of the new readings file:" << endl;
-    cin >> filenm;
-    
-   
-    
-    get_wreadings(filenm, irkutsk);
-    cout << irkutsk << endl;
-    exit(0);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //int rate = 2;
-    //cout << filenm << endl;
-    //Date test_date(15,12,2019);
-    //cout << test_date<< endl;
-    //WReading wr = WReading (Date(17 ,12, 2000),78.2, 43.6, 12.3);
-    //cout << wr << endl;
-    //cout << irkutsk.get_name() << endl;
+void make_images1(Image& img1) {
+    for (int i = 0; i < 100; i++) {
+        Image img2 = Image(10, 10, "foo.txt");
+        img2 = img1;
+    }
 }
 
+void make_images2(Image& img1) {
+    for (int i = 0; i < 100; i++) {
+        Image img2 = img1;
+    }
+}
+
+
+int main() {
+    string fnm = "happy.gif!";
+    Image img = Image(100, 100, fnm);
+    for (int i = 1; i < 100; i++) {
+        make_images1(img);
+        make_images2(img);
+    }
+    exit(0);
+    
+    Date date1 = Date(1, 1, 2019);
+    WReading test_temps = WReading(date1, 0, 50, 10);
+    int wr_size = sizeof(test_temps);
+    cout << "Size of a Date is " << sizeof(date1) << endl;
+    cout << "Size of a WReading is " << wr_size << endl;
+    
+    double freezingF = test_temps.get_tempF();
+    assert(freezingF == 32.0);
+    test_temps = WReading(Date(1, 1, 2019), 100, 50, 10);
+    freezingF = test_temps.get_tempF();
+    assert(freezingF == 212.0);
+    
+    Weather irkutsk = Weather("Irkutsk", GPS(46.3, 67.2));
+    
+    string filenm;
+    cout << "Input the name of the new readings file:\n";
+    cin >> filenm;
+    
+    get_wreadings(filenm, irkutsk);
+    
+    //    cout << irkutsk << endl;
+}
