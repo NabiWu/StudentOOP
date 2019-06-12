@@ -85,6 +85,8 @@ private:
 };
 
 
+
+
 bool operator== (const Complex& c1, const Complex& c2);
 bool operator!= (const Complex& c1, const Complex& c2);
 /*

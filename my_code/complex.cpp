@@ -2,15 +2,11 @@
 #include <istream>
 #include <iomanip>
 #include "complex.h"
+#include <cmath>
 
 using namespace std;
 
-bool operator== (const Complex& c1, const Complex& c2) {
-    return ((c1.get_real() == c2.get_real()) && (c1.get_imag() == c2.get_imag()));
-}
-bool operator!= (const Complex& c1, const Complex& c2){
-    return ((c1.get_real() != c2.get_real()) || (c1.get_imag() != c2.get_imag()));
-}
+
 
 ostream& operator<< (ostream& os, const Complex& c) {
     /*
@@ -42,6 +38,16 @@ Complex::operator bool() const {
     return ((real != 0) || (imag != 0));
 }
 
+
+double Complex::get_real() const {
+    return real;
+}
+
+double Complex::get_imag() const {
+    return imag;
+}
+
+
 Complex& Complex::operator++() {
     ++real;
     return (*this);
@@ -65,11 +71,31 @@ Complex Complex::operator--(int dummy) {
 }
 
 Complex Complex::operator-=(const Complex& c){
-    Complex temp(*this);
     real = real - c.real;
     imag = imag - c.imag;
-    return temp;
+    return *this;
 }
+
+
+Complex Complex :: operator*(const int i){
+    Complex temp{real*i,imag*i};
+    return temp;
+   
+}
+
+
+
+
+
+bool operator == (const Complex& c1, const Complex& c2) {
+    cout<< "c1: "<<c1<<endl;
+    cout<< "c2: "<<c2<<endl;
+    return ( abs(c1.get_real() - c2.get_real())<0.00001 &&  abs(c1.get_imag() - c2.get_imag())<0.00001);
+}
+bool operator!= (const Complex& c1, const Complex& c2){
+    return ((c1.get_real() != c2.get_real()) || (c1.get_imag() != c2.get_imag()));
+}
+
 
 Complex operator+(const Complex& c1, const Complex& c2) {
     Complex sum{c1.get_real() + c2.get_real() , c1.get_imag()+c2.get_imag()};
@@ -78,20 +104,4 @@ Complex operator+(const Complex& c1, const Complex& c2) {
 Complex operator-(const Complex& c1, const Complex& c2) {
     Complex sub{c1.get_real() - c2.get_real() , c1.get_imag() - c2.get_imag()};
     return sub;
-}
-
-double Complex::get_real() const {
-    return real;
-}
-
-double Complex::get_imag() const {
-    return imag;
-}
-
-Complex Complex :: operator*(const int i){
-    Complex temp(*this);
-    real = real*i;
-    imag = imag*i;
-    return temp;
-   
 }
