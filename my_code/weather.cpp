@@ -12,7 +12,6 @@ const double C_TO_F = 9/5;
 Image:: Image(int w, int h, string flnm)
     : width(w),height(h), filename(flnm)
 {
-    filename = flnm;
     image_buf = new char[image_sz()];
 }
 
