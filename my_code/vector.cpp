@@ -20,7 +20,7 @@ MyVec::MyVec(){
 
 MyVec::MyVec(const MyVec& v2){
     capacity = v2.capacity;
-    sz = v2.size() ;
+    sz = v2.sz ;
     
     data = new int[capacity];
     //copy over existing data
@@ -87,17 +87,15 @@ int& MyVec:: operator[](int i){
 
 
 bool operator==(MyVec& v1, MyVec& v2) {
-    if (v1.size() != v2.size()){
-        return false;
-    }
-    else{
+    if (v1.size() == v2.size()){
         for (int i =0; i <v1.size();i++){
             if (v1[i]!=v2[i]){
                 return false;
             }
         }
-        return true;
+         return true;
     }
+    return false;
 }
 
 
