@@ -15,21 +15,18 @@ public:
     ~Image();
     Image& operator=(const Image& img2);
     int image_sz();
-    
     /*
      * Setting `display() = 0` here makes this an abstract
      * class that can't be implemented.
      * */
-    std::string display(std::string s);
+    virtual std::string display(std::string s) ;
     /*
      * If we don't want virtual method lookup, we
      * could just declare:
      * void display();
      * */
-    
     int get_height() { return height; }
     int get_width() { return width; }
-    
 private:
     int width;
     int height;
@@ -38,7 +35,38 @@ private:
     void copy_fields(const Image& img2);
 };
 
+class Gif : public Image{
+public:
+    Gif(int w, int h, std::string flnm, int cl=0): Image(w,h,flnm),compress_level(cl){}
+    std::string display(std::string s);
+private:
+    int compress_level;
+};
 
+const int HIGH = 3;
+const int MEDIUM = 2;
+const int LOW = 1;
+
+class Jpeg :public Image{
+public:
+    Jpeg(int w, int h, std::string flnm, int q=HIGH): Image(w,h,flnm),quality(q){}
+    std::string display(std::string s);
+private:
+    int quality;
+};
+
+class Png :public Image{
+public:
+    Png(int w, int h, std::string flnm, int q=LOW): Image(w,h,flnm),quality(q) {}
+    std::string display(std::string s);
+private:
+    int quality;
+};
+
+
+
+
+//GPS
 struct GPS {
     double latitude;
     double longitude;
@@ -49,6 +77,8 @@ struct GPS {
 std::ostream& operator<<(std::ostream& os, const GPS& gps);
 
 
+
+//Date
 class Date {
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
 public:
@@ -63,19 +93,20 @@ private:
 class WReading {
     friend std::ostream& operator<<(std::ostream& os, const WReading& wr);
 public:
-    WReading(Date dt, double temp, double hum, double ws) :
-    date(dt), temperature(temp), humidity(hum), windspeed(ws)
-    {
-    }
+    WReading(Date dt, double temp, double hum, double ws,Image* img=nullptr) :
+    date(dt), temperature(temp), humidity(hum), windspeed(ws), image(img)
+    {}
     
-    double get_tempF();
-    double get_tempC() { return temperature; }
+    double get_tempF()const ;
+    double get_tempC()const { return temperature; }
+    void display_image()const;
     
 private:
     Date date;
     double temperature;  // stored temp in C
     double humidity;
     double windspeed;
+    Image* image;
 };
 
 
@@ -93,6 +124,7 @@ public:
     int get_rating() const;
     void set_rating(int new_rating);
     void add_reading(WReading wr);
+    void display_images()const;
 private:
     std::vector<WReading> wreadings;
     std::string station_nm;
