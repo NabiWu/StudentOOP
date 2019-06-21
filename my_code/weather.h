@@ -19,7 +19,7 @@ public:
      * Setting `display() = 0` here makes this an abstract
      * class that can't be implemented.
      * */
-    virtual std::string display(std::string s) ;
+    virtual std::string display(std::string s);
     /*
      * If we don't want virtual method lookup, we
      * could just declare:

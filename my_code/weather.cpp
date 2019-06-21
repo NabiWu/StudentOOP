@@ -133,7 +133,7 @@ string Weather::get_name()const {
 
 
 
-int Weather:: get_rating() const {
+int Weather:: get_rating()const{
     return rating;
 }
 
