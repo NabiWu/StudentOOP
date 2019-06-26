@@ -3,11 +3,9 @@
 using namespace std;
 
 
-void print_vector(const MyVec& v){
-    for (int i =0;i<v.size();i++){
-        cout<<v[i]<<" ";
-    }
-    cout<< endl;
+void print_vector(const MyVec& v) {
+    for(int i : v) cout << i << " ";
+    cout << endl;
 }
 
 
@@ -15,6 +13,12 @@ MyVec::MyVec(){
     sz = 0;
     capacity = DEF_CAPACITY;
     data = new int[DEF_CAPACITY];
+}
+
+MyVec::MyVec(int sz, int val) : sz{sz} {
+    capacity = max(DEF_CAPACITY, sz * CAPACITY_MULT);
+    data = new int[capacity];
+    for (size_t i = 0; i < sz; i++) data[i] = val;
 }
 
 
@@ -96,6 +100,24 @@ bool operator==(MyVec& v1, MyVec& v2) {
          return true;
     }
     return false;
+}
+
+void MyVec::copy(const MyVec& v2) {
+    sz = v2.sz;
+    capacity = v2.capacity;
+    data = new int[capacity];
+    for (int i = 0; i < sz; i++) {
+        data[i] = v2.data[i];
+    }
+}
+
+
+MyVec::Iterator MyVec::begin() const {
+    return MyVec::Iterator(data);
+}
+
+MyVec::Iterator MyVec::end() const {
+    return MyVec::Iterator(data+size());
 }
 
 
