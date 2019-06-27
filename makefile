@@ -4,33 +4,15 @@ CC=$(CXX)
 STUDENT_DIR=my_code
 TEST_DIR=tests
 
-test_hello: $(TEST_DIR)/test_hello
+test_stl: $(TEST_DIR)/test_stl
 
-$(TEST_DIR)/test_hello: $(STUDENT_DIR)/hello.cpp $(TEST_DIR)/test_hello.cpp
-
-test_basics: $(TEST_DIR)/test_basics
-
-$(TEST_DIR)/test_basics: $(STUDENT_DIR)/basics.cpp $(TEST_DIR)/test_basics.cpp
-
-test_pointers: $(TEST_DIR)/test_pointers
-
-$(TEST_DIR)/test_pointers: $(STUDENT_DIR)/pointers.cpp $(TEST_DIR)/test_pointers.cpp
-
-test_weather: $(TEST_DIR)/test_weather
-
-$(TEST_DIR)/test_weather: $(STUDENT_DIR)/weather.cpp $(TEST_DIR)/test_weather.cpp
-
-test_complex: $(TEST_DIR)/test_complex
-
-$(TEST_DIR)/test_complex: $(STUDENT_DIR)/complex.cpp $(TEST_DIR)/test_complex.cpp
-
-test_vector: $(TEST_DIR)/test_vector
-
-$(TEST_DIR)/test_vector: $(STUDENT_DIR)/vector.cpp $(TEST_DIR)/test_vector.cpp
+$(TEST_DIR)/test_stl: $(STUDENT_DIR)/stl.cpp $(TEST_DIR)/test_stl.cpp
 
 
-tests: test_vector 
-	tests/test_vector
+
+
+tests: test_stl 
+	tests/test_stl
 	
 
 prod: tests
