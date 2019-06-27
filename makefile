@@ -11,7 +11,7 @@ test_stl: $(TEST_DIR)/test_stl
 $(TEST_DIR)/test_stl: $(TEST_DIR)/test_stl.cpp
 
 
-tests: test_hello test_basics test_pointers test_complex test_vector test_llist test_tvector test_stl
+tests: test_stl
 	tests/test_stl
 
 
